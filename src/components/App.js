@@ -3,7 +3,6 @@ import  Login  from "./login"
 import Signup from "../components/signup"
 import { BrowserRouter as Router,Route ,Switch } from "react-router-dom"
 import ModalExampleTopAligned from "./home"
- 
 
 function App() {
   return (
