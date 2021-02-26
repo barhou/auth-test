@@ -1,8 +1,15 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Link, withRouter } from "react-router-dom"
+import {auth} from "../firebase"
 
 const Login = (props) => {
+  
+  const signUp=()=>{
+    auth.signInWithEmailAndPassword(
+      "barhoumiaymen523@gmail.com","123456"
+      ).then(res=>props.history.push('/home'))
+  }
   return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
@@ -20,7 +27,7 @@ const Login = (props) => {
             type='password'
           />
 
-          <Button color='teal' fluid size='large' onClick={()=>props.history.push('/home')}>
+          <Button color='teal' fluid size='large' onClick={signUp}>
             Login
           </Button>
         </Segment>

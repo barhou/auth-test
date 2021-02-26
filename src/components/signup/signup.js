@@ -1,10 +1,18 @@
-import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import React,{useState} from 'react'
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Link, withRouter } from "react-router-dom"
-import { useHistory } from "react-router-dom"
+//import { useHistory } from "react-router-dom"
+import {auth} from "../../firebase" 
 
 
 const Signup = (props) => {
+  const [email, setEmail] = useState('')
+  const handleSignUp = async ()   => {
+     const res=  await auth.createUserWithEmailAndPassword(
+      email,"123456"
+        ).catch(err=>  console.log(JSON.stringify("User already used",err)))
+       
+      };
 return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
@@ -13,7 +21,7 @@ return(
       </Header>
       <Form size='large'>
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+          <Form.Input onChange={v=>setEmail(v.target.value)} fluid icon='user' iconPosition='left' placeholder='E-mail address' />
           <Form.Input
             fluid
             icon='lock'
@@ -28,7 +36,7 @@ return(
             placeholder='Password'
             type='password'
           />
-          <Button color='teal' fluid size='large' onClick={()=>props.history.push('/home')}>
+          <Button color='teal' fluid size='large' onClick={handleSignUp}>
             Signup
           </Button>
         </Segment>
