@@ -1,14 +1,20 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Link, withRouter } from "react-router-dom"
 import {auth} from "../firebase"
 
-const Login = (props) => {
-  
+  const Login = (props) => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const signUp=()=>{
     auth.signInWithEmailAndPassword(
-      "barhoumiaymen523@gmail.com","123456"
-      ).then(res=>props.history.push('/home'))
+      email,password)
+      .then(res=>{
+        console.log(res,"res")
+        localStorage.setItem("token","res")
+        props.history.push('/home')
+      })
+      .catch(res=>alert("this user not found"))
   }
   return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -18,9 +24,14 @@ const Login = (props) => {
       </Header>
       <Form size='large'>
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+          <Form.Input fluid icon='user'
+          value={email}
+          onChange={v=>setEmail(v.target.value)}
+          iconPosition='left' placeholder='E-mail address' />
           <Form.Input
             fluid
+            value={password}
+            onChange={v=>setPassword(v.target.value)}
             icon='lock'
             iconPosition='left'
             placeholder='Password'

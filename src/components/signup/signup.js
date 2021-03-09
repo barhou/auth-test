@@ -5,13 +5,23 @@ import { Link, withRouter } from "react-router-dom"
 import {auth} from "../../firebase" 
 
 
-const Signup = (props) => {
+  const Signup = (props) => {
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+
   const handleSignUp = async ()   => {
-     const res=  await auth.createUserWithEmailAndPassword(
-      email,"123456"
-        ).catch(err=>  console.log(JSON.stringify("User already used",err)))
-       
+if(passwordConfirmation==password){
+  const res=  await auth.createUserWithEmailAndPassword(
+    email,password
+      )
+      .then(res=>props.history.push('/'))
+      .catch(err=>  alert(JSON.stringify("User already used",err)))
+     
+}else{
+  alert("Password not match")
+}
+
       };
 return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -21,20 +31,25 @@ return(
       </Header>
       <Form size='large'>
         <Segment stacked>
-          <Form.Input onChange={v=>setEmail(v.target.value)} fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+          <Form.Input value={email} onChange={v=>setEmail(v.target.value)} fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+         
           <Form.Input
             fluid
             icon='lock'
             iconPosition='left'
             placeholder='Password'
             type='password'
+            value={password}
+            onChange={v=>setPassword(v.target.value)}
           />
 <Form.Input
             fluid
             icon='repeat'
             iconPosition='left'
-            placeholder='Password'
+            placeholder='Password Confirmation'
             type='password'
+            value={passwordConfirmation}
+            onChange={v=>setPasswordConfirmation(v.target.value)}
           />
           <Button color='teal' fluid size='large' onClick={handleSignUp}>
             Signup
