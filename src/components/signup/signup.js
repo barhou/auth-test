@@ -11,7 +11,7 @@ import {auth} from "../../firebase"
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
 
   const handleSignUp = async ()   => {
-if(passwordConfirmation==password){
+if(passwordConfirmation == password){
   const res=  await auth.createUserWithEmailAndPassword(
     email,password
       )
@@ -22,7 +22,7 @@ if(passwordConfirmation==password){
   alert("Password not match")
 }
 
-      };
+      };  
 return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>

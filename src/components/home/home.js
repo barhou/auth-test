@@ -3,9 +3,6 @@ import axios from "axios"
 import * as XLSX from 'xlsx'
 import Tree from 'react-animated-tree'
 
-
-
-
 const treeStyles = {
   position: 'absolute',
   top: 40,
@@ -35,9 +32,9 @@ const App = () => {
 
     const promise = new Promise((resolve, reject) => {
 
-      const fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(file)
-      fileReader.onload = (e) => {
+        const fileReader = new FileReader();
+              fileReader.readAsArrayBuffer(file)
+             fileReader.onload = (e) => {
         const bufferArray = e.target.result;
         const wb = XLSX.read(bufferArray, { type: 'buffer' });
 
@@ -57,7 +54,7 @@ const App = () => {
   };
   const renderTargetData = async () => {
     await axios
-      .get('https://auth-test-4cba1-default-rtdb.firebaseio.com/target.json', { headers: { "Access-Control-Allow-Origin": "*" } })
+      .get('https://test-project-f7c55-default-rtdb.firebaseio.com/', { headers: { "Access-Control-Allow-Origin": "*" } })
       .then(response => {
         setTargetData(response.data)
         console.log(response)
@@ -153,3 +150,4 @@ const DisplayDetails = ({ Action, param1, param2, param3 }) => {
 }
 
 export default App ;
+

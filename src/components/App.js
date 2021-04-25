@@ -23,7 +23,7 @@ function App() {
 }
 
 function PrivateRoute ({component: Component, authenticated, ...rest}) {
- console.log(authenticated,"authththt")
+
   return (
     <Route
       {...rest}

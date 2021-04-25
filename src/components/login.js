@@ -6,15 +6,21 @@ import {auth} from "../firebase"
   const Login = (props) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  
   const signUp=()=>{
+
+    
+
     auth.signInWithEmailAndPassword(
       email,password)
       .then(res=>{
-        console.log(res,"res")
-        localStorage.setItem("token","res")
-        props.history.push('/home')
+       
+        console.log(res,"res",props,"props")
+        localStorage.setItem("token",res.user.za)
+        props.history.push('home')
       })
       .catch(res=>alert("this user not found"))
+    
   }
   return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
